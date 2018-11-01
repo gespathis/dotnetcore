@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using OdeToFood.Services;
 
 namespace OdeToFood
 {
@@ -18,6 +15,7 @@ namespace OdeToFood
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IGreeter, Greeter>();
+            services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
             services.AddMvc();
 
         }
@@ -35,7 +33,7 @@ namespace OdeToFood
             //app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(ConfigureRoutes);
 
             //app.Use(next =>
             //{
@@ -60,8 +58,15 @@ namespace OdeToFood
             app.Run(async (context) =>
             {
                 var greeting = greeter.GetMessageOfTheDay();
+                context.Response.ContentType = "text/plain";
                 await context.Response.WriteAsync(greeting);
             });
+        }
+
+        private void ConfigureRoutes(IRouteBuilder routeBuilder)
+        {
+            routeBuilder.MapRoute("default","{controller=Home}/{action=Index}/{id?}");
+
         }
     }
 }
