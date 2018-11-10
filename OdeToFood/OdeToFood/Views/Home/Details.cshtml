@@ -1,13 +1,10 @@
-﻿@model OdeToFood.Models.Restaurant
+﻿@*@model OdeToFood.Models.Restaurant*@
+@model Restaurant
+@{
+    ViewBag.Title = "Details";
+}
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
-    <h1>@Model.Name</h1>
-    <div>Id: @Model.Id</div>
-    <div>Cuisine Type: @Model.Cuisine</div>
-    <a asp-action="Index" asp-controller="Home">Home</a>
-</body>
-</html>
+<h1>@Model.Name</h1>
+<div>Id: @Model.Id</div>
+<div>Cuisine Type: @Model.Cuisine</div>
+<a asp-action="Index" asp-controller="Home">Home</a>

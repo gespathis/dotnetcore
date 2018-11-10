@@ -9,6 +9,7 @@ namespace OdeToFood.Services
         IEnumerable<Restaurant> GetAll();
         Restaurant Get(int id);
         Restaurant Add(Restaurant newRestaurant);
+        Restaurant Update(Restaurant restaurant);
     }
 }
 

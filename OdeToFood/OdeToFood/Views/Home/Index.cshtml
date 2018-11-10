@@ -1,12 +1,18 @@
 ﻿@model OdeToFood.ViewModels.HomeIndexViewModel
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
-    <h1>@Model.CurrentMessage</h1>
-    <table>
+@{
+    ViewBag.Title = "Home Page";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>All Restaurants</h1>
+
+@foreach (var restaurant in Model.Restaurants)
+{
+    @await Html.PartialAsync("_Summary", restaurant);
+}
+
+    @*<table>
         @foreach (var restaurant in Model.Restaurants)
         {
             <tr>
@@ -14,15 +20,20 @@
                 <td>@restaurant.Name</td>
                 <td>
                     @*<a href="/home/details/@restaurant.Id">details...</a>
-                    @Html.ActionLink("Go", "Details", new { id = restaurant.Id });*@
-                    <a asp-action="Details" asp-route-id="@restaurant.Id">more</a>
+                        @Html.ActionLink("Go", "Details", new { id = restaurant.Id });
+                    <a asp-action="Details" asp-route-id="@restaurant.Id">More</a>
+                    <a asp-page="/Restaurants/Edit" asp-route-id="@restaurant.Id">Edit</a>
                 </td>
             </tr>
         }
 
     </table>
-    <a asp-action="Create">Add restaurant</a>
-    @*<h1>@Model.Name</h1>*@
-    @*<div>The id value is @Model.Id</div>*@
-</body>
-</html>
+*@
+
+                    <div><a asp-action="Create">Add restaurant</a></div>
+@*<h1>@Model.Name</h1>*@
+@*<div>The id value is @Model.Id</div>*@
+
+@*@section footer {
+    @Model.CurrentMessage
+}*@
