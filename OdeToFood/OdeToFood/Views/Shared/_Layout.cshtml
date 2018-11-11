@@ -4,32 +4,45 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
-    <div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid"></div>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">OdeToFood</a>
+        </div>
+    </nav>
+    <div class="container">
         @RenderBody()
-    </div>
-    <footer>
-        @RenderSection("footer", required: false)
-        @*@await Component.InvokeAsync("Greeter")*@
-        <vc:greeter></vc:greeter>
-        @if (User.Identity.IsAuthenticated)
-        {
-            foreach(var idenity in User.Identities)
-            {
-                <h3>@idenity.Name</h3>
-                 <ul>
-                    @foreach(var claim in idenity.Claims)
+        <footer>
+            @RenderSection("footer", required: false)
+            @*@await Component.InvokeAsync("Greeter")*@
+            <vc:greeter></vc:greeter>
+            @*@if (User.Identity.IsAuthenticated)
+                {
+                    foreach(var idenity in User.Identities)
                     {
-                        <li>@claim.Type - @claim.Value</li>
+                        <h3>@idenity.Name</h3>
+                         <ul>
+                            @foreach(var claim in idenity.Claims)
+                            {
+                                <li>@claim.Type - @claim.Value</li>
+                            }
+                        </ul>
                     }
-                </ul>
-            }
-        }
-        else
-        {
-               <div>You are anonymous</div>
-        }
-    </footer>
+                }
+                else
+                {
+                       <div>You are anonymous</div>
+                }*@
+        </footer>
+    </div>
+    <environment include="Development">
+        <script src="~/node_modules/jquery/dist/jquery.js"></script>
+        <script src="~/node_modules/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+    </environment>
+
 </body>
 </html>
